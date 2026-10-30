@@ -58,3 +58,10 @@ All names below are exported from `iso_weeks_lib`:
 - `IsoWeekDate(iso_year, iso_week, iso_weekday=1)` — frozen dataclass; validates on construction. Has `.date` (property), `.to_str()`, and `.from_str(s)`.
 
 No third-party dependencies. Python 3.8+ (uses `date.fromisocalendar`).
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
